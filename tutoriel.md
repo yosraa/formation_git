@@ -89,3 +89,22 @@ git checkout main
 git merge --no-ff new-merge
 
 ```
+
+###  Faire une rebase de main vers new-merge
+
+***
+la commande git rebase permet de rebase une branche sur une autre. Cela consiste à déplacer le point de départ de la première à la suite de la seconde
+***
+
+```
+git fetch
+git checkout <ta-branche>
+git status
+git rebase origin/master
+"git rebase -- abort" pour annuler rebase
+<résolution de conflits>
+git status
+git commit
+git push -f <ta-branche>
+
+```
