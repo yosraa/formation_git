@@ -1,0 +1,73 @@
+image:
+
+before_script:
+  - poetry config virtualenvs.in-project true
+stages:
+  - test
+  - deploy
+
+test-code:
+  stage: test
+  tags: [test]
+  only:
+    - master
+    - main
+    - /rc-.*/
+  services:
+    - name: postgres:13
+      alias: postgres
+  variables:
+    POSTGRES_DB: test
+    POSTGRES_USER: test
+    POSTGRES_PASSWORD: test
+    POSTGRES_HOST: test
+    PLATFORM: ci
+  script:
+    - make build
+    - make test
+test-coverage:
+  stage: test
+  tags: [test]
+  except:
+    - master
+  services:
+    - name: postgres:13
+      alias: postgres
+  variables:
+    POSTGRES_DB: test
+    POSTGRES_USER: test
+    POSTGRES_PASSWORD: test
+    POSTGRES_HOST: test
+    PLATFORM: ci
+  script:
+    - make build
+    - make test
+.deploy_template: &deploy_definition
+  stage: deploy
+  needs: [test-code]
+  tags: [test]
+  script:
+    -   poetry install --only main
+    - cv .venv/lib/python3.9/site-packages
+    - zip -r lambda_algo ./*
+    - cd ../../../../
+    - mv .venv/lib/python3.9/site-packages/lambda_algo.zip .
+    - zip -ur lambda_algo.zip lambda_algo
+    - ls -la *.zip
+    - aws lambda update-function-code --function-name XXXX-${AWS_PLATFORM_DEST} --zip-file fileb://lambda_algo.zip --region XXX
+
+
+deploy_test:
+  <<: *deploy_definition
+  only:
+    - /alpha-.*/
+  variables:
+    AWS_PLATFORM_DEST: "test"
+
+deploy_recette:
+  <<: *deploy_definition
+  only:
+    - /rc-.*/
+  variables:
+    AWS_PLATFORM_DEST: "recette"
+
