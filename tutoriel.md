@@ -54,12 +54,11 @@ echo "ma-premiere-branche" > branche.txt
 # On l'ajoute et on commit
 git add branche.txt
 git commit -m "Création de ma première branche"
-# On la pousse sur le serveur ?
-git push
-
-
+# On la pousse sur le serveur 
+git push --set-upstream origin new-merge
 ```
 ### 5. Gérer un conflit
+
 ```
 on fusionne une branche dans le master
 git merge new-merge
@@ -71,7 +70,22 @@ git add merge.txt
 git commit
 En cas de panique, on peut toujours annuler le merge en faisant `git merge --abort`
 ```
+### 6 Revenir en arrière
 
+```
+cas 1 : les mises à jour on t été rejetées car la pointe de la branche courante est derrière
+git fetch
+git switch --detach origin/main
+git branch -f main 
+git switch main
+git merge --no-ff new-merge
 
+cas 2 :
+git fetch
+git lg --all
+git checkout num-commit
+git branch -f main
+git checkout main
+git merge --no-ff new-merge
 
-
+```
