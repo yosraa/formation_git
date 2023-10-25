@@ -59,7 +59,6 @@ un éditeur s'ouvre
 le commit que je veux garder je laisse pick
 je ne veux pas garder les autres, je veux qu'ils soient fusionnés dans le commit que je veux garder. je vais donc remplacer "pick" par "squash"
 il faut ensuite faire un push -f car on souhaite réécrire l'historique de la branche distante
-
 # revenir en arrière
 le gros intérêt du versioning est qu'il va nous permettre de revenir en arrière en cas de problème.
 Pour cela on a plusieurs possibiltés
@@ -79,3 +78,4 @@ la commande reset est utile pour nettoyer l'historique local avant de l'envoyer 
 > git checkout filename
 
 cette commande permet de transformer le fichier tel qu'il était lors du commit et l'ajoute au staging
+
