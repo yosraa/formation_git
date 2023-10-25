@@ -79,3 +79,20 @@ la commande reset est utile pour nettoyer l'historique local avant de l'envoyer 
 
 cette commande permet de transformer le fichier tel qu'il était lors du commit et l'ajoute au staging
 
+# supprission du fichier
+supprimer de fichier  seulement en local
+> git add 'deleted file name'
+> git commit -m 'message'
+> git push -u origin branch
+
+supprimer un fichier depuis le remote et le local
+
+> git rm 'file name'
+> git commit -m 'message'
+> git push -u origin branch
+
+supprimer un fichier depuis le remote
+
+> git rm --cached 'file name'
+> git commit -m 'message'
+> git push -u origin branch
