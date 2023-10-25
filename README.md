@@ -59,3 +59,6 @@ un éditeur s'ouvre
 le commit que je veux garder je laisse pick
 je ne veux pas garder les autres, je veux qu'ils soient fusionnés dans le commit que je veux garder. je vais donc remplacer "pick" par "squash"
 il faut ensuite faire un push -f car on souhaite réécrire l'historique de la branche distante
+
+# revenir en arrière
+>
